@@ -3,7 +3,6 @@
 //Codons are displayed as being grouped together between vertical lines (eg. | A T G | T A A | A G A |...).
 #include <iostream>
 #include <cmath>
-
 using namespace std;
 
 struct values //We want to hold our number, as well as a boolean variable which ends repetition, in this struct.
@@ -17,6 +16,10 @@ void turn_to_DNA(values* n);//and this function converts it into the string of n
 
 int main() //Our main function just repeats asking for a number and spitting out the sequence until the user enters a 0.
 {
+	cout << "This program will turn a number you choose into a strand of DNA which is grouped into codons.\n";
+	cout << "Positive values start with fewer codons and inrease in number as you increase the number,\n";
+	cout << "and negative values start with the most codons and decrease in number as you approach the lower limit.\n";
+	cout << "Entering the number zero, or entering a number with a non-whole number value will terminate the program.\n";
 	while (n.flag == true) //Our boolean value determines whether or not we will repeat the program.
 	{
 		get_number(&n);
@@ -34,7 +37,7 @@ int main() //Our main function just repeats asking for a number and spitting out
 
 void get_number(values* n) //We define our function for acquiring a number from the user here.
 {
-	cout << "\tEnter 0 to quit or\nEnter a number less than 18,446,744,073,709,551,616.\n" << endl;
+	cout << "\tEnter 0 to quit or\nEnter a number less than the absolute value of 18,446,744,073,709,551,616.\n" << endl;
 	cin >> n->number;
 	cout << "\n";
 	if (n->number == 0) //Here is where the condition for repetition to end is stated.
@@ -60,26 +63,8 @@ void turn_to_DNA(values* n) //We define our function for converting the number t
 	for (int i = 0; i < counter + 1; i++) //Here, we determine the codon sequence associated with the base-64 digits in the array
 	{
 		cout << " | "; //Beginning with a vertical separatng line, followed by the first nucleotide in the codon,
-		if (array[i] / 16 >= 3)
-		{
-			cout << "G ";
-		}
-		else if (array[i] / 16 >= 2)
-		{
-			cout << "A ";
-		}
-		else if (array[i] / 16 >= 1)
-		{
-			cout << "C ";
-		}
-		else if (array[i] / 16 >= 0)
-		{
-			cout << "T ";
-		}
-		array[i] /= 16; //Then the digit is divided by 16, 
-		array[i] -= floor(array[i]); //and the whole-number value that determined the first nucleotide is removed.
-		array[i] *= 4; //Next, the second nucleotide is determined by multiplying the remainder by 4,
-		if (array[i] >= 3)
+		array[i] /= 16; //The digit is divided by 16,
+		for (int j = 0; j < 3; j++)
 		{
 			cout << "G ";
 		}
@@ -95,24 +80,10 @@ void turn_to_DNA(values* n) //We define our function for converting the number t
 		{
 			cout << "T ";
 		}
-		array[i] -= floor(array[i]); //And then that whole-number value is subtracted from what is left.
-		array[i] *= 4; //Finally, the last base is found by multiplying the remainder by 4.
-		if (array[i] == 3)
-		{
-			cout << "G";
+		array[i] -= floor(array[i]); //and the whole-number value that determined the first nucleotide is removed.
+		array[i] *= 4; //Next, the second nucleotide is determined by multiplying the remainder by 4,
 		}
-		else if (array[i] == 2)
-		{
-			cout << "A";
+		
 		}
-		else if (array[i] == 1)
-		{
-			cout << "C";
-		}
-		else if (array[i] == 0)
-		{
-			cout << "T";
-		}
-	}
-	cout << " |\n" << endl; //Once the sequence is finished, the last vertical separator line caps off the last codon.
+	cout << "|\n" << endl; //Once the sequence is finished, the last vertical separator line caps off the last codon.
 }
