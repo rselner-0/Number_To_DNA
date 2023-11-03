@@ -8,7 +8,6 @@ using namespace std;
 
 struct values
 {
-	bool negative = false;
 	bool flag = true;
 	unsigned long long number = 0;
 }n;
