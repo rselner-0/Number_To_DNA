@@ -45,7 +45,7 @@ void get_number(values* n)
 
 void turn_to_DNA(values* n)
 {
-	double array[50] = {};
+	double array[11] = {};
 	int size = floor(log(n->number) / log(64));
 	int counter = 0;
 	while (n->number > 63)
