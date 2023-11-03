@@ -64,7 +64,9 @@ void turn_to_DNA(values* n) //We define our function for converting the number t
 	{
 		cout << " | "; //Beginning with a vertical separatng line, followed by the first nucleotide in the codon,
 		array[i] /= 16; //The digit is divided by 16,
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 3; j++) //This "for" loop dissects the base-64 number into three base-4 numbers which code for the nucleotides. 
+		{
+			if (array[i] >= 3)
 		{
 			cout << "G ";
 		}
@@ -81,9 +83,8 @@ void turn_to_DNA(values* n) //We define our function for converting the number t
 			cout << "T ";
 		}
 		array[i] -= floor(array[i]); //and the whole-number value that determined the first nucleotide is removed.
-		array[i] *= 4; //Next, the second nucleotide is determined by multiplying the remainder by 4,
-		}
-		
+			array[i] *= 4; //Next, the next nucleotide is determined by multiplying the remainder by 4, and the loop continues twice more.
+		} //However large or small the number is determiines how many codons will be displayed, which correlates directly with the "size" variable.
 		}
 	cout << "|\n" << endl; //Once the sequence is finished, the last vertical separator line caps off the last codon.
 }
